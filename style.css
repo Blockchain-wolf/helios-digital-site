@@ -1,0 +1,920 @@
+/* Palette et réglages réutilisables dans tout le fichier */
+:root {
+  --color-accent: #47705a;
+  --color-text: #1f2937;
+  --color-muted: #57606f;
+  --glass-bg: rgba(255, 255, 255, 0.5);
+  --glass-bg-strong: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.7);
+}
+
+/* Barre de progression de lecture, tout en haut de l'écran */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #3d6b4d, #c9a227);
+  z-index: 300;
+}
+
+/* Scrollbar fine et discrète, assortie à la couleur du site (Chrome/Edge/Firefox) */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #47705a rgba(0, 0, 0, 0.08);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #47705a;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* Réinitialisation simple : évite les surprises entre navigateurs */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth; /* clic sur un lien du menu = défilement en douceur, pas un saut brut */
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  color: var(--color-text);
+  padding: 1.5rem;
+  min-height: 100vh;
+
+  /* Dégradé pastel doux et fixe : ne bouge pas quand on scroll, sert de toile de fond au verre dépoli */
+  background: linear-gradient(135deg, #e6f7e6 0%, #f3fadd 50%, #fdf6d8 100%);
+  background-attachment: fixed;
+}
+
+/* Style "verre dépoli" commun au header et aux cartes :
+   fond sombre semi-transparent + flou de ce qu'il y a derrière */
+header,
+section {
+  background-color: var(--glass-bg);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+}
+
+header {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  /* Reste flottant en haut de l'écran pendant le scroll (verre dépoli qui floute
+     le contenu qui défile en dessous) — look premium, toujours accessible */
+  position: sticky;
+  top: 0.75rem;
+  z-index: 60;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#menu-toggle {
+  /* 48px : la taille minimale recommandée pour une zone touchée au doigt */
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+#menu-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* :active = pendant l'appui (souris ou doigt) : retour visuel immédiat au toucher */
+#menu-toggle:active {
+  transform: scale(0.9);
+}
+
+nav#nav-menu {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+nav#nav-menu.open {
+  max-height: 300px;
+  margin-top: 1rem;
+}
+
+nav#nav-menu a {
+  padding: 0.75rem;
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  transition: background-color 0.2s ease, padding-left 0.2s ease;
+}
+
+nav#nav-menu a:hover,
+nav#nav-menu a:active {
+  background-color: rgba(0, 0, 0, 0.06);
+  padding-left: 1rem;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Hero : première chose vue en arrivant sur le site */
+.hero {
+  text-align: center;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+
+.hero-title {
+  font-size: 1.6rem;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #3d6b4d, #c9a227);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  margin: 1.25rem 0;
+}
+
+/* Pulsation douce sur le bouton principal, pour attirer l'œil sans être criard */
+.hero-actions .buy-button {
+  animation: pulse-glow 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(71, 112, 90, 0.4); }
+  50% { box-shadow: 0 0 0 10px rgba(71, 112, 90, 0); }
+}
+
+.hero-link {
+  color: var(--color-text);
+  font-size: 0.9rem;
+  text-decoration: underline;
+}
+
+.hero-carousel {
+  position: relative;
+  aspect-ratio: 16 / 9; /* format paysage, pensé pour des captures d'écran de sites en version bureau */
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+/* Fondu doux sur les bords de la photo, vers la couleur pastel du fond du site
+   (plutôt qu'un assombrissement, pour éviter un effet de bord noir) */
+.hero-carousel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(230, 247, 230, 0.6) 100%);
+  pointer-events: none; /* laisse passer les clics vers les points de navigation */
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* remplit toute la case : fonctionne bien avec des photos déjà au format paysage */
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.hero-slide.active {
+  opacity: 1;
+}
+
+.hero-dots {
+  position: absolute;
+  z-index: 2; /* reste cliquable au-dessus du fondu */
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+}
+
+.hero-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.hero-dot.active {
+  background-color: white;
+  transform: scale(1.3);
+}
+
+.brand {
+  display: inline-block;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #3d6b4d, #c9a227);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-accent);
+}
+
+p {
+  font-size: 1rem;
+  color: var(--color-muted);
+}
+
+section {
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.5s ease, background-color 0.2s ease;
+
+  /* État de départ avant l'apparition au scroll (voir script.js) */
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+section.visible:hover {
+  transform: translateY(-3px);
+  background-color: var(--glass-bg-strong);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+.pricing-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.price-card {
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.price-card.featured {
+  border: 2px solid var(--color-accent);
+}
+
+.price-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.price-card .price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+.price-card ul {
+  list-style: none;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.price-card li {
+  padding: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.price-card li::before {
+  content: "✓ ";
+  color: var(--color-accent);
+  font-weight: bold;
+}
+
+.buy-button {
+  display: inline-block;
+  /* Zone tactile confortable : au moins 44px de hauteur */
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-accent);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.buy-button:hover {
+  box-shadow: 0 6px 16px rgba(71, 112, 90, 0.35);
+}
+
+.buy-button:active {
+  transform: scale(0.96);
+}
+
+/* Offre de maintenance mensuelle */
+.maintenance-offer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  text-align: center;
+  margin-top: 1.25rem;
+  padding: 1.25rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px dashed var(--color-accent); /* pointillés : signale une offre "en plus", différente des forfaits ponctuels */
+  border-radius: 12px;
+}
+
+.maintenance-offer h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.4rem;
+}
+
+.maintenance-offer p {
+  font-size: 0.9rem;
+}
+
+.maintenance-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.maintenance-cta .price {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--color-accent);
+}
+
+.price-period {
+  font-size: 0.8rem;
+  font-weight: normal;
+  color: var(--color-muted);
+}
+
+/* Badges de confiance sous les tarifs */
+.trust-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+  margin-top: 1.25rem;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+.trust-badges span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.trust-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+/* Témoignages */
+.testimonial-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.testimonial-card {
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.testimonial-card .stars {
+  color: var(--color-accent);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.testimonial-author {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+/* Barre d'action fixe (mobile) */
+.sticky-cta {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  padding: 0.75rem 1rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid var(--glass-border);
+  text-align: center;
+  transition: transform 0.25s ease;
+}
+
+.sticky-cta.hidden {
+  transform: translateY(100%);
+}
+
+.sticky-cta .buy-button {
+  width: 100%;
+  max-width: 320px;
+}
+
+/* Laisse de la place en bas de page pour ne pas être caché par la barre fixe */
+body.has-sticky-cta {
+  padding-bottom: 5.5rem;
+}
+
+/* Galerie de projets : défilement horizontal type "book", une carte à la fois */
+.portfolio-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  margin: 1rem -1.25rem -1.25rem; /* déborde jusqu'aux bords de la carte parente */
+  padding: 0 1.25rem 1.25rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.portfolio-card {
+  flex: 0 0 78%;
+  scroll-snap-align: start;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+}
+
+.portfolio-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain; /* montre toute la capture (utile pour les captures mobiles en portrait) */
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+}
+
+.portfolio-card h3 {
+  font-size: 1rem;
+  margin: 0.75rem 0.75rem 0.25rem;
+}
+
+.portfolio-card p {
+  font-size: 0.85rem;
+  margin: 0 0.75rem 0.75rem;
+}
+
+/* Comment ça marche : étapes numérotées */
+.steps {
+  list-style: none;
+  margin-top: 1rem;
+  counter-reset: step;
+}
+
+.steps li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 2.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.steps li:last-child {
+  margin-bottom: 0;
+}
+
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.steps p {
+  font-size: 0.9rem;
+  margin-top: 0.15rem;
+}
+
+/* FAQ : accordéons natifs HTML, pas besoin de JavaScript */
+#faq details {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.75rem 0;
+}
+
+#faq details:last-child {
+  border-bottom: none;
+}
+
+#faq summary {
+  cursor: pointer;
+  font-weight: bold;
+  list-style: none; /* enlève le triangle par défaut, on met le nôtre */
+}
+
+#faq summary::-webkit-details-marker {
+  display: none;
+}
+
+#faq summary::after {
+  content: "+";
+  float: right;
+  transition: transform 0.2s ease;
+}
+
+#faq details[open] summary::after {
+  transform: rotate(45deg);
+}
+
+#faq details p {
+  margin-top: 0.5rem;
+  color: var(--color-muted);
+}
+
+/* Formulaire de contact */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 1rem;
+}
+
+.contact-form label {
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+  font: inherit;
+  padding: 0.6rem;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0.75rem;
+  resize: vertical;
+}
+
+.honeypot {
+  display: none;
+}
+
+.contact-form button {
+  border: none;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.legal-links {
+  margin-top: 0.4rem;
+}
+
+.legal-links a {
+  color: var(--color-muted);
+}
+
+.home-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.25rem;
+  background-color: var(--glass-bg);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  color: var(--color-text);
+  font-weight: bold;
+  text-decoration: none;
+  transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: var(--glass-bg-strong);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.back-button:active {
+  transform: scale(0.96);
+}
+
+/* Page 404 */
+.error-page {
+  text-align: center;
+}
+
+.error-page .buy-button {
+  margin-top: 1rem;
+}
+
+/* Page mentions légales / CGV : encadré d'avertissement bien visible */
+.legal-notice {
+  background-color: rgba(234, 179, 8, 0.2);
+  border: 1px solid rgba(234, 179, 8, 0.5);
+  font-size: 0.9rem;
+}
+
+.legal-sub-note {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+}
+
+/* Bouton flottant WhatsApp */
+.whatsapp-button {
+  position: fixed;
+  bottom: calc(1.25rem + 4.25rem); /* laisse la place à la barre CTA fixe en dessous, sur mobile */
+  left: 1.25rem;
+  z-index: 100;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #25d366; /* couleur officielle WhatsApp */
+  color: white;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s ease;
+}
+
+.whatsapp-button:hover {
+  transform: scale(1.05);
+}
+
+.whatsapp-button:active {
+  transform: scale(0.92);
+}
+
+/* Au-delà de 600px de large (tablette/ordinateur),
+   on centre le contenu et on ne le laisse pas s'étirer à l'infini */
+@media (min-width: 600px) {
+  body {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .pricing-grid {
+    flex-direction: row;
+  }
+
+  .price-card {
+    flex: 1;
+  }
+}
+
+/* Version bureau : plus de largeur, menu horizontal, mises en page en colonnes */
+@media (min-width: 960px) {
+  body {
+    max-width: 1100px;
+    padding: 2rem 3rem;
+  }
+
+  /* Le header devient une barre horizontale classique : logo à gauche, menu à droite */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    padding: 1.25rem 2rem;
+  }
+
+  .header-top {
+    margin-bottom: 0;
+  }
+
+  header p {
+    display: none; /* tagline redondante une fois le menu visible en permanence */
+  }
+
+  #menu-toggle {
+    display: none; /* plus besoin du bouton hamburger, le menu est toujours visible */
+  }
+
+  nav#nav-menu {
+    flex-direction: row;
+    max-height: none;
+    overflow: visible;
+    margin-top: 0;
+    gap: 0.25rem;
+  }
+
+  nav#nav-menu a {
+    border-bottom: none;
+  }
+
+  nav#nav-menu a:hover,
+  nav#nav-menu a:active {
+    padding-left: 0.75rem; /* annule l'effet de décalage pensé pour le menu mobile */
+  }
+
+  /* Hero en deux colonnes : texte à gauche, visuel à droite */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    text-align: left;
+    gap: 2.5rem;
+  }
+
+  /* Offre de maintenance : texte à gauche, prix/action à droite */
+  .maintenance-offer {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .maintenance-cta {
+    flex-shrink: 0;
+  }
+
+  .hero-actions {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  /* Étapes en 4 colonnes plutôt qu'en liste verticale */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .steps li {
+    padding-left: 0;
+    padding-top: 2.5rem;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .steps li::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Témoignages côte à côte */
+  .testimonial-grid {
+    flex-direction: row;
+  }
+
+  .testimonial-card {
+    flex: 1;
+  }
+
+  /* Galerie de projets : grille fixe plutôt que défilement tactile */
+  .portfolio-scroll {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow: visible;
+    margin: 1rem 0 0;
+    padding: 0;
+  }
+
+  /* La barre CTA fixe est un pattern mobile : inutile sur grand écran */
+  .sticky-cta {
+    display: none;
+  }
+
+  body.has-sticky-cta {
+    padding-bottom: 0;
+  }
+
+  .whatsapp-button {
+    bottom: 1.25rem;
+  }
+}
+
+/* Accessibilité : lien d'évitement pour la navigation clavier
+   (invisible par défaut, apparaît uniquement au focus) */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0.5rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--color-accent);
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+}
+
+/* Contour de focus visible pour la navigation au clavier */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Respecte la préférence "réduire les animations" du système d'exploitation */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  section {
+    opacity: 1;
+    transform: none;
+  }
+}
