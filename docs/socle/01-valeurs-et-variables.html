@@ -1,0 +1,757 @@
+<title>Valeurs et Variables</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
+<style>
+  :root {
+    --bg:        #F3F4F0;
+    --surface:   #EAEBE5;
+    --ink:       #1B1F1C;
+    --ink-soft:  #3E443F;
+    --ink-faint: #6E7370;
+    --rule:      #D2D5CC;
+    --accent:    #A8700C;
+    --sage:      #3D5A45;
+    --rust:      #A33A22;
+    --mark:      #E7DCC2;
+    --slab:      #21251F;
+    --slab-ink:  #E9EBE6;
+    --slab-dim:  #8A918A;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:        #141715;
+      --surface:   #1D211E;
+      --ink:       #E9EBE6;
+      --ink-soft:  #BDC2BB;
+      --ink-faint: #8A918A;
+      --rule:      #2E332F;
+      --accent:    #DFA23F;
+      --sage:      #8CB396;
+      --rust:      #D9836A;
+      --mark:      #3A3320;
+      --slab:      #0D0F0E;
+      --slab-ink:  #E9EBE6;
+      --slab-dim:  #7B827B;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg:        #141715;
+    --surface:   #1D211E;
+    --ink:       #E9EBE6;
+    --ink-soft:  #BDC2BB;
+    --ink-faint: #8A918A;
+    --rule:      #2E332F;
+    --accent:    #DFA23F;
+    --sage:      #8CB396;
+    --rust:      #D9836A;
+    --mark:      #3A3320;
+    --slab:      #0D0F0E;
+    --slab-ink:  #E9EBE6;
+    --slab-dim:  #7B827B;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 1.075rem;
+    line-height: 1.68;
+    -webkit-font-smoothing: antialiased;
+    padding: 0 1.25rem 5rem;
+  }
+
+  .page { max-width: 42rem; margin: 0 auto; }
+
+  h1, h2, h3, .eyebrow, .lbl, .meta dt, button {
+    font-family: Archivo, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  code, kbd, .mono, .eyebrow, .lbl, .meta dt {
+    font-family: "IBM Plex Mono", Consolas, monospace;
+  }
+
+  h1 {
+    font-size: clamp(2.1rem, 8vw, 3rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    text-wrap: balance;
+    margin: 0 0 0.9rem;
+  }
+
+  h3 {
+    font-size: 1.08rem;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0 0 0.5rem;
+  }
+
+  p { margin: 0 0 1rem; }
+  p:last-child { margin-bottom: 0; }
+
+  .eyebrow {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.9rem;
+  }
+
+  code {
+    font-size: 0.87em;
+    background: var(--surface);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+    color: var(--ink);
+  }
+
+  em.term {
+    font-style: normal;
+    background: var(--mark);
+    padding: 0.05em 0.25em;
+    border-radius: 2px;
+  }
+
+  strong { font-weight: 600; }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    padding: 3.2rem 0 1.6rem;
+    border-bottom: 3px solid var(--ink);
+    margin-bottom: 2.4rem;
+  }
+
+  .masthead .sub {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    margin: 1rem 0 0;
+    line-height: 1.45;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.6rem;
+    margin: 1.6rem 0 0;
+  }
+
+  .meta div { display: flex; flex-direction: column; gap: 0.15rem; }
+
+  .meta dt {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .meta dd { margin: 0; font-size: 0.95rem; }
+
+  /* ---------- sections ---------- */
+
+  section {
+    padding-top: 2.6rem;
+    border-top: 1px solid var(--rule);
+    margin-top: 2.6rem;
+  }
+
+  section:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+
+  .n {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.45rem;
+  }
+
+  /* ---------- lab (console) ---------- */
+
+  .lab {
+    background: var(--slab);
+    border-radius: 4px;
+    padding: 0.9rem;
+    margin: 1.4rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .lab__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .lab__label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .lab__hint {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.66rem;
+    color: var(--slab-dim);
+  }
+
+  .lab__code {
+    width: 100%;
+    background: transparent;
+    color: var(--slab-ink);
+    border: none;
+    border-left: 2px solid var(--slab-dim);
+    padding: 0 0 0 0.75rem;
+    font-family: "IBM Plex Mono", Consolas, monospace;
+    font-size: 0.86rem;
+    line-height: 1.65;
+    resize: vertical;
+    caret-color: var(--accent);
+    tab-size: 2;
+  }
+
+  .lab__code:focus {
+    outline: none;
+    border-left-color: var(--accent);
+  }
+
+  .lab__run {
+    align-self: flex-start;
+    background: var(--accent);
+    color: #16180F;
+    border: none;
+    border-radius: 3px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+  }
+
+  .lab__run:hover { filter: brightness(1.08); }
+  .lab__run:active { transform: translateY(1px); }
+
+  .lab__out {
+    margin: 0;
+    font-family: "IBM Plex Mono", Consolas, monospace;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--slab-ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+    border-top: 1px dashed #3A403A;
+    padding-top: 0.7rem;
+    min-height: 1.2rem;
+  }
+
+  .lab__out:empty { display: none; }
+  .lab__out .dim { color: var(--slab-dim); }
+  .lab__out .err { color: #E4886C; }
+
+  /* ---------- prediction ---------- */
+
+  details.predict {
+    background: var(--surface);
+    border-left: 3px solid var(--sage);
+    padding: 0.9rem 1rem;
+    margin: 1.4rem 0;
+    border-radius: 0 3px 3px 0;
+  }
+
+  details.predict > summary {
+    cursor: pointer;
+    font-family: Archivo, sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--sage);
+    list-style: none;
+  }
+
+  details.predict > summary::-webkit-details-marker { display: none; }
+
+  details.predict > summary::before {
+    content: "▸ ";
+    font-family: "IBM Plex Mono", monospace;
+  }
+
+  details.predict[open] > summary::before { content: "▾ "; }
+
+  details.predict > div {
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--rule);
+    font-size: 1rem;
+  }
+
+  /* ---------- warnings / notes ---------- */
+
+  .note {
+    border-left: 3px solid var(--rust);
+    padding: 0.1rem 0 0.1rem 1rem;
+    margin: 1.4rem 0;
+  }
+
+  .note .lbl {
+    display: block;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.3rem;
+  }
+
+  .keep {
+    border-left: 3px solid var(--accent);
+    padding: 0.1rem 0 0.1rem 1rem;
+    margin: 1.4rem 0;
+    font-size: 1.1rem;
+    line-height: 1.45;
+  }
+
+  /* ---------- lists ---------- */
+
+  ul, ol { margin: 0 0 1rem; padding-left: 1.15rem; }
+  li { margin-bottom: 0.4rem; }
+  li::marker { color: var(--accent); }
+
+  .plain { list-style: none; padding-left: 0; }
+  .plain li {
+    padding-left: 1.4rem;
+    position: relative;
+  }
+  .plain li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--ink-faint);
+  }
+
+  /* ---------- closing ---------- */
+
+  .closing {
+    margin-top: 3.2rem;
+    border-top: 3px solid var(--ink);
+    padding-top: 1.8rem;
+  }
+
+  .colophon {
+    margin-top: 2.4rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    line-height: 1.6;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+
+<div class="page">
+
+  <header class="masthead">
+    <span class="eyebrow">Socle · Leçon 1 sur 18</span>
+    <h1>Valeurs et Variables</h1>
+    <p class="sub">La brique dont tout le reste est fait. Aucune installation : la console de cette page exécute vraiment le JavaScript que tu écris, y compris sur téléphone.</p>
+    <dl class="meta">
+      <div><dt>Durée</dt><dd>30 à 45 minutes</dd></div>
+      <div><dt>Prérequis</dt><dd>Aucun</dd></div>
+      <div><dt>Matériel</dt><dd>Cette page</dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <span class="n">01</span>
+    <h2>Ce qu'un ordinateur sait faire</h2>
+
+    <p>Un ordinateur ne sait faire que deux choses : <strong>retenir des valeurs</strong> et <strong>appliquer des instructions dessus</strong>. Absolument tout le reste — un site, une application bancaire, un jeu — n'est qu'un empilement de ces deux gestes, répété des millions de fois par seconde.</p>
+
+    <p>Programmer, c'est donc apprendre deux choses : quelles valeurs existent, et comment leur donner des noms pour pouvoir en parler. C'est exactement le sujet de cette leçon, et c'est pour ça qu'elle est la première.</p>
+
+    <p>Commençons. Appuie sur <strong>Exécuter</strong>.</p>
+
+    <div class="lab">
+      <div class="lab__head">
+        <span class="lab__label">Console</span>
+        <span class="lab__hint">modifiable</span>
+      </div>
+      <textarea class="lab__code" rows="1" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">2 + 3</textarea>
+      <button class="lab__run" type="button">Exécuter</button>
+      <pre class="lab__out" aria-live="polite"></pre>
+    </div>
+
+    <p>Tu viens d'exécuter du code. Remplace <code>2 + 3</code> par autre chose — <code>10 * 4</code>, <code>100 / 7</code> — et réexécute. Cette console fonctionne comme celle d'un vrai navigateur : prends l'habitude d'y essayer les choses au lieu de les supposer.</p>
+
+    <div class="note">
+      <span class="lbl">Sur téléphone</span>
+      <p>Le clavier Android met des majuscules automatiques et corrige les mots. En code, <code>Console</code> et <code>console</code> sont deux choses différentes, et une correction automatique casse tout. Si un exercice refuse de fonctionner, c'est la première chose à vérifier.</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="n">02</span>
+    <h2>Une valeur a toujours un type</h2>
+
+    <p>Quand tu écris <code>2</code>, tu écris une valeur. Quand tu écris <code>"bonjour"</code>, tu en écris une autre. Elles ne se comportent pas pareil, parce qu'elles ne sont pas du même <em class="term">type</em>.</p>
+
+    <p>Au début, trois types suffisent :</p>
+
+    <ul class="plain">
+      <li><strong>Le nombre</strong> — <code>2</code>, <code>3.5</code>, <code>-40</code>. Sans guillemets.</li>
+      <li><strong>La chaîne de caractères</strong> — <code>"bonjour"</code>, <code>"42"</code>. Toujours entre guillemets. C'est du texte.</li>
+      <li><strong>Le booléen</strong> — <code>true</code> ou <code>false</code>. Rien d'autre. C'est une réponse à une question fermée.</li>
+    </ul>
+
+    <p>Le mot <code>typeof</code> te donne le type d'une valeur. Exécute, puis change la valeur et recommence.</p>
+
+    <div class="lab">
+      <div class="lab__head">
+        <span class="lab__label">Console</span>
+        <span class="lab__hint">modifiable</span>
+      </div>
+      <textarea class="lab__code" rows="4" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">console.log(typeof 42);
+console.log(typeof "42");
+console.log(typeof true);</textarea>
+      <button class="lab__run" type="button">Exécuter</button>
+      <pre class="lab__out" aria-live="polite"></pre>
+    </div>
+
+    <p>Regarde bien la deuxième ligne. <code>42</code> et <code>"42"</code> ont l'air identiques pour toi, mais pas pour la machine : l'un est une quantité, l'autre est du texte qui ressemble à une quantité. Cette distinction va revenir sans arrêt, et elle est la cause d'une bonne partie des bugs de débutant.</p>
+
+    <p>Remarque aussi <code>console.log(...)</code> : c'est l'instruction qui affiche quelque chose. Sans elle, la machine calcule mais ne te montre rien.</p>
+  </section>
+
+  <section>
+    <span class="n">03</span>
+    <h2>Une variable est une étiquette</h2>
+
+    <p>Retenir une valeur ne sert à rien si on ne peut pas la désigner plus tard. Une <em class="term">variable</em>, c'est une étiquette que tu colles sur une valeur pour pouvoir en reparler.</p>
+
+    <p>On la crée avec <code>const</code> :</p>
+
+    <div class="lab">
+      <div class="lab__head">
+        <span class="lab__label">Console</span>
+        <span class="lab__hint">modifiable</span>
+      </div>
+      <textarea class="lab__code" rows="4" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">const prix = 199;
+const client = "Dupont";
+console.log(client, prix);</textarea>
+      <button class="lab__run" type="button">Exécuter</button>
+      <pre class="lab__out" aria-live="polite"></pre>
+    </div>
+
+    <p>Trois choses se passent sur la première ligne : on demande une nouvelle étiquette (<code>const</code>), on lui donne un nom (<code>prix</code>), et on l'accroche à une valeur (<code>199</code>).</p>
+
+    <h3>const ou let</h3>
+
+    <p>Il existe deux étiquettes possibles, et la différence tient en une phrase :</p>
+
+    <ul class="plain">
+      <li><code>const</code> — l'étiquette ne pourra plus être déplacée sur une autre valeur.</li>
+      <li><code>let</code> — l'étiquette pourra être déplacée plus tard.</li>
+    </ul>
+
+    <p>La règle professionnelle est simple : <strong>utilise <code>const</code> par défaut</strong>, et <code>let</code> seulement quand tu sais que la valeur va changer. Ce n'est pas une coquetterie — quand tu relis du code, un <code>const</code> te garantit d'un coup d'œil que cette valeur ne bougera pas, ce qui est une chose de moins à surveiller.</p>
+
+    <details class="predict">
+      <summary>Que va-t-il se passer ? Réfléchis avant d'ouvrir</summary>
+      <div>
+        <p>Le code ci-dessous essaie de déplacer une étiquette <code>const</code>. Il va <strong>planter</strong>, avec le message <code>TypeError: Assignment to constant variable</code>.</p>
+        <p>C'est exactement ce qu'on veut : l'erreur arrive tout de suite, à l'endroit du problème, plutôt que trois écrans plus loin sous une forme incompréhensible. Une bonne erreur est une erreur qui arrive tôt.</p>
+      </div>
+    </details>
+
+    <div class="lab">
+      <div class="lab__head">
+        <span class="lab__label">Console</span>
+        <span class="lab__hint">provoque une erreur</span>
+      </div>
+      <textarea class="lab__code" rows="3" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">const prix = 199;
+prix = 250;</textarea>
+      <button class="lab__run" type="button">Exécuter</button>
+      <pre class="lab__out" aria-live="polite"></pre>
+    </div>
+
+    <p>Avec <code>let</code>, la même chose fonctionne :</p>
+
+    <div class="lab">
+      <div class="lab__head">
+        <span class="lab__label">Console</span>
+        <span class="lab__hint">modifiable</span>
+      </div>
+      <textarea class="lab__code" rows="4" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">let compteur = 0;
+compteur = compteur + 1;
+console.log(compteur);</textarea>
+      <button class="lab__run" type="button">Exécuter</button>
+      <pre class="lab__out" aria-live="polite"></pre>
+    </div>
+
+    <div class="note">
+      <span class="lbl">Un mot que tu vas croiser</span>
+      <p>Dans du vieux code ou de vieux tutoriels, tu verras <code>var</code>. C'est l'ancêtre de <code>let</code>, il a des comportements piégeux, et il n'a plus aucune raison d'être utilisé. Si un tutoriel utilise <code>var</code>, c'est le signe qu'il date d'avant 2015 — méfie-toi du reste de son contenu.</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="n">04</span>
+    <h2>Le piège n° 1 : le signe égal ne veut pas dire « égal »</h2>
+
+    <p>En mathématiques, <code>x = x + 1</code> est une absurdité : aucun nombre n'est égal à lui-même plus un.</p>
+
+    <p>En programmation, cette ligne est parfaitement normale, parce que <code>=</code> ne signifie pas « est égal à ». Il signifie : <strong>« prends ce qui est à droite, et colle l'étiquette de gauche dessus »</strong>. On lit toujours de droite à gauche.</p>
+
+    <p>Donc <code>compteur = compteur + 1</code> se lit : calcule <code>compteur + 1</code>, puis déplace l'étiquette <code>compteur</code> sur ce nouveau résultat.</p>
+
+    <p>Pour <em>comparer</em> deux valeurs, on utilise trois signes égal : <code>===</code>.</p>
+
+    <div class="lab">
+      <div class="lab__head">
+        <span class="lab__label">Console</span>
+        <span class="lab__hint">modifiable</span>
+      </div>
+      <textarea class="lab__code" rows="4" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">const age = 30;
+console.log(age === 30);
+console.log(age === 31);</textarea>
+      <button class="lab__run" type="button">Exécuter</button>
+      <pre class="lab__out" aria-live="polite"></pre>
+    </div>
+
+    <p>Une comparaison produit toujours un booléen : <code>true</code> ou <code>false</code>. C'est ce qui permettra, à la leçon 3, de faire prendre des décisions à un programme.</p>
+
+    <div class="keep">
+      <code>=</code> range une valeur. <code>===</code> pose une question.
+    </div>
+  </section>
+
+  <section>
+    <span class="n">05</span>
+    <h2>Le piège n° 2 : additionner du texte</h2>
+
+    <p>Prédis le résultat avant d'exécuter. Prends dix secondes, vraiment : c'est l'effort de prédiction qui fait apprendre, pas la lecture de la réponse.</p>
+
+    <div class="lab">
+      <div class="lab__head">
+        <span class="lab__label">Console</span>
+        <span class="lab__hint">prédis d'abord</span>
+      </div>
+      <textarea class="lab__code" rows="3" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">console.log(5 + 3);
+console.log("5" + 3);</textarea>
+      <button class="lab__run" type="button">Exécuter</button>
+      <pre class="lab__out" aria-live="polite"></pre>
+    </div>
+
+    <details class="predict">
+      <summary>Pourquoi <code>"53"</code> et pas <code>8</code> ?</summary>
+      <div>
+        <p>Le signe <code>+</code> fait deux métiers. Entre deux nombres, il additionne. Dès qu'une chaîne est impliquée, il <strong>colle bout à bout</strong> — on appelle ça la concaténation. Il a donc transformé <code>3</code> en <code>"3"</code>, puis collé : <code>"5"</code> + <code>"3"</code> = <code>"53"</code>.</p>
+        <p>Ce n'est pas un détail théorique. <strong>Tout ce qu'un utilisateur tape dans un formulaire arrive chez toi sous forme de chaîne</strong>, y compris les nombres. Un champ « quantité » où l'utilisateur saisit 5 te donne <code>"5"</code>, pas <code>5</code>. Additionner deux quantités sans conversion donne <code>"55"</code> au lieu de <code>10</code> — et c'est un vrai bug de production, pas un exercice.</p>
+      </div>
+    </details>
+
+    <p>La conversion se fait avec <code>Number()</code> :</p>
+
+    <div class="lab">
+      <div class="lab__head">
+        <span class="lab__label">Console</span>
+        <span class="lab__hint">modifiable</span>
+      </div>
+      <textarea class="lab__code" rows="3" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">const saisie = "5";
+console.log(Number(saisie) + 3);</textarea>
+      <button class="lab__run" type="button">Exécuter</button>
+      <pre class="lab__out" aria-live="polite"></pre>
+    </div>
+  </section>
+
+  <section>
+    <span class="n">06</span>
+    <h2>Nommer, c'est déjà du métier</h2>
+
+    <p>Un débutant nomme ses variables <code>a</code>, <code>x</code>, <code>data</code>, <code>truc</code>. Un professionnel les nomme pour la personne qui lira le code dans six mois — et cette personne, ce sera toi.</p>
+
+    <p>Trois règles qui suffisent :</p>
+
+    <ul>
+      <li><strong>Dis ce que la valeur contient</strong>, pas comment tu l'as obtenue. <code>prixTotal</code> plutôt que <code>resultat2</code>.</li>
+      <li><strong>Préfixe les booléens</strong> par une question implicite : <code>estPaye</code>, <code>aDesErreurs</code>. On doit pouvoir y répondre par oui ou non.</li>
+      <li><strong>Colle les mots avec une majuscule</strong> au milieu : <code>nombreDeClients</code>. C'est la convention JavaScript, et respecter la convention du langage fait partie du travail.</li>
+    </ul>
+
+    <p>Le nom n'a aucun effet sur l'exécution. Il a un effet énorme sur ta capacité à relire — et, plus tard, sur ta capacité à juger du code qu'une IA aura écrit pour toi.</p>
+  </section>
+
+  <section>
+    <span class="n">07</span>
+    <h2>À toi</h2>
+
+    <p>Quatre exercices. Écris le code toi-même dans la console ci-dessous, sans copier depuis les exemples plus haut. Si tu bloques plus de 20 minutes sur l'un d'eux, passe au suivant et note la question.</p>
+
+    <ol>
+      <li>Crée une variable <code>nomClient</code> qui contient ton nom, et affiche-la.</li>
+      <li>Crée <code>prixHT</code> à <code>199</code>, puis affiche le prix TTC (TVA à 20 %).</li>
+      <li>Une saisie de formulaire te donne <code>const saisie = "12"</code>. Affiche le double, en vrai nombre.</li>
+      <li>Crée <code>estClientFidele</code> et donne-lui une valeur booléenne. Puis affiche son type avec <code>typeof</code>.</li>
+    </ol>
+
+    <div class="lab">
+      <div class="lab__head">
+        <span class="lab__label">Ton atelier</span>
+        <span class="lab__hint">écris ici</span>
+      </div>
+      <textarea class="lab__code" rows="8" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">// Exercice 1
+</textarea>
+      <button class="lab__run" type="button">Exécuter</button>
+      <pre class="lab__out" aria-live="polite"></pre>
+    </div>
+
+    <details class="predict">
+      <summary>Les corrigés — à n'ouvrir qu'après avoir essayé les quatre</summary>
+      <div>
+        <p><strong>1.</strong> <code>const nomClient = "Kevin";</code> puis <code>console.log(nomClient);</code></p>
+        <p><strong>2.</strong> <code>const prixHT = 199;</code> puis <code>console.log(prixHT * 1.2);</code> — le résultat est <code>238.79999999999998</code>. Ce n'est pas une erreur de ta part : les ordinateurs stockent les décimaux de façon approchée. On verra comment gérer l'argent proprement plus tard ; retiens simplement que ce comportement existe.</p>
+        <p><strong>3.</strong> <code>console.log(Number(saisie) * 2);</code> — et <code>saisie * 2</code> fonctionne aussi, parce que <code>*</code> n'a qu'un seul métier, contrairement à <code>+</code>. Mais écris la conversion explicitement : ton code doit dire ce qu'il fait.</p>
+        <p><strong>4.</strong> <code>const estClientFidele = true;</code> puis <code>console.log(typeof estClientFidele);</code> qui affiche <code>"boolean"</code>.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="closing">
+    <h2>Ce que tu dois savoir répondre</h2>
+
+    <p>Sans remonter dans la page. Si une réponse ne vient pas, relis seulement la section concernée — pas toute la leçon.</p>
+
+    <ul>
+      <li>Quelle est la différence entre <code>42</code> et <code>"42"</code> ?</li>
+      <li>Pourquoi <code>x = x + 1</code> n'est pas une absurdité ?</li>
+      <li>Quand utilises-tu <code>let</code> plutôt que <code>const</code> ?</li>
+      <li>Pourquoi <code>"5" + 3</code> donne <code>"53"</code>, et pourquoi ça compte dans un vrai formulaire ?</li>
+      <li>Que produit toujours une comparaison avec <code>===</code> ?</li>
+    </ul>
+
+    <div class="keep">Prochaine leçon — <strong>Les objets et les tableaux</strong> : comment ranger plusieurs valeurs ensemble, et pourquoi c'est la forme que prennent toutes les données d'une vraie application.</div>
+
+    <p class="colophon">Socle · Leçon 1 sur 18 · Programme « Vibe Coder Professionnel ».<br>La console de cette page exécute le code localement, dans ton navigateur. Rien n'est envoyé nulle part.</p>
+  </section>
+
+</div>
+
+<script>
+  (function () {
+    function fmt(v, depth) {
+      depth = depth || 0;
+      if (typeof v === "string") return depth === 0 ? v : '"' + v + '"';
+      if (v === undefined) return "undefined";
+      if (v === null) return "null";
+      if (typeof v === "function") return "[fonction]";
+      if (typeof v === "object") {
+        try { return JSON.stringify(v); } catch (e) { return String(v); }
+      }
+      return String(v);
+    }
+
+    function esc(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    function execute(code, sink) {
+      var fakeConsole = {
+        log: function () {
+          sink(Array.prototype.map.call(arguments, function (a) {
+            return fmt(a, 0);
+          }).join(" "));
+        }
+      };
+      fakeConsole.info = fakeConsole.log;
+      fakeConsole.warn = fakeConsole.log;
+      fakeConsole.error = fakeConsole.log;
+
+      // On tente d'abord de lire le code comme une expression unique,
+      // pour afficher son résultat comme le ferait une vraie console.
+      var asExpression = null;
+      try {
+        asExpression = new Function("console", "return (\n" + code + "\n);");
+      } catch (e) {
+        asExpression = null;
+      }
+
+      if (asExpression) {
+        var value = asExpression(fakeConsole);
+        if (value !== undefined) sink(fmt(value, 1));
+        return;
+      }
+
+      new Function("console", code)(fakeConsole);
+    }
+
+    var labs = document.querySelectorAll(".lab");
+
+    Array.prototype.forEach.call(labs, function (lab) {
+      var editor = lab.querySelector(".lab__code");
+      var button = lab.querySelector(".lab__run");
+      var output = lab.querySelector(".lab__out");
+
+      function run() {
+        var lines = [];
+        output.innerHTML = "";
+
+        try {
+          execute(editor.value, function (line) { lines.push(esc(line)); });
+        } catch (error) {
+          var name = (error && error.name) || "Erreur";
+          var message = (error && error.message) || String(error);
+          lines.push('<span class="err">' + esc(name + " : " + message) + "</span>");
+        }
+
+        if (lines.length === 0) {
+          lines.push('<span class="dim">(exécuté, aucune sortie — utilise console.log pour afficher quelque chose)</span>');
+        }
+
+        output.innerHTML = lines.join("\n");
+      }
+
+      button.addEventListener("click", run);
+
+      // Ctrl+Entrée exécute aussi, pour ceux qui travaillent au clavier.
+      editor.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+          event.preventDefault();
+          run();
+        }
+      });
+    });
+  })();
+</script>
