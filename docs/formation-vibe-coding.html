@@ -438,6 +438,35 @@
     line-height: 1.6;
   }
 
+  /* ---------- prompt block ---------- */
+
+  .prompt {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    padding: 1rem 1.15rem;
+    margin: 1.4rem 0 0;
+    max-width: 42rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.83rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    white-space: pre-wrap;
+    overflow-x: auto;
+  }
+
+  .prompt-label {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.64rem;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .week--day .num { font-size: 1.15rem; }
+
   /* ---------- responsive ---------- */
 
   @media (max-width: 40rem) {
@@ -474,11 +503,11 @@
     <dl class="meta">
       <div>
         <dt>Rythme</dt>
-        <dd>12 h / semaine sur 12 semaines — ou 6 h / semaine sur 24. Jamais moins de 6 h : en dessous, tu oublies plus vite que tu n'apprends.</dd>
+        <dd>10 jours de réactivation à 3 h par jour, puis 12 h / semaine sur 12 semaines — ou 6 h / semaine sur 24. Jamais moins de 6 h : en dessous, tu oublies plus vite que tu n'apprends.</dd>
       </div>
       <div>
         <dt>Prérequis</dt>
-        <dd>HTML, CSS, JavaScript de base. Savoir faire un commit.</dd>
+        <dd>Des bases déjà vues, même anciennes et même oubliées. La phase de réactivation existe exactement pour ça.</dd>
       </div>
       <div>
         <dt>Livrable final</dt>
@@ -486,7 +515,7 @@
       </div>
       <div>
         <dt>Format</dt>
-        <dd>Une semaine = un livrable vérifiable. Pas de semaine « théorie ».</dd>
+        <dd>Un jour de réactivation = quelque chose qui tourne. Une semaine = un livrable vérifiable. Aucune séance de théorie pure.</dd>
       </div>
     </dl>
   </header>
@@ -518,12 +547,17 @@
       <table>
         <thead>
           <tr>
-            <th scope="col">Semaines</th>
+            <th scope="col">Période</th>
             <th scope="col">Phase</th>
             <th scope="col">Ce que tu gagnes</th>
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td class="wk">J1 – J10</td>
+            <td class="nm">Réactivation</td>
+            <td class="gl">Remettre la main sur toute la pile, en dix jours et un seul projet.</td>
+          </tr>
           <tr>
             <td class="wk">00</td>
             <td class="nm">Diagnostic</td>
@@ -551,6 +585,267 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Phase préalable · 10 jours</span>
+      <h2>Réactivation</h2>
+    </div>
+
+    <div class="prose">
+      <p>Des bases oubliées ne sont pas des bases absentes, et c'est une très bonne nouvelle : réapprendre coûte une fraction de ce qu'a coûté l'apprentissage initial. Ce que tu as vu il y a des années n'a pas disparu, il est simplement devenu inaccessible faute d'avoir été rappelé. Dix jours denses suffisent à le remettre à portée — à condition de ne pas les passer à relire.</p>
+    </div>
+
+    <p class="pull" style="margin-top:1.5rem">Relire un cours donne le sentiment de savoir. Seul l'effort de retrouver sans aide remet réellement une connaissance à disposition.</p>
+
+    <div class="prose" style="margin-top:1.5rem">
+      <p>C'est tout le principe de cette phase : à chaque notion, tu <strong>essaies d'abord</strong>, tu cherches ensuite. L'inconfort de ne pas trouver tout de suite n'est pas une perte de temps, c'est exactement le moment où la reconstruction se fait.</p>
+      <p>Un seul projet traverse les dix jours. Chaque journée ajoute une couche à la précédente, et se termine par quelque chose qui tourne. Au soir du dixième jour, tu as reconstruit toute la pile d'un SaaS — et tu es prêt pour la semaine 0.</p>
+    </div>
+
+    <div class="cols" style="margin-top:2.4rem">
+      <div>
+        <h3>Tu tapes le code toi-même</h3>
+        <ul>
+          <li>Pendant ces dix jours <em class="term">seulement</em>, l'IA est ton tuteur et jamais ton exécutant</li>
+          <li>Tu reconstruis le muscle qui te permettra ensuite de juger ce qu'elle produit</li>
+          <li>À partir de la semaine 0, tu délègues — et tu le fais bien parce que tu as fait ces dix jours</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Le chronomètre à 20 minutes</h3>
+        <ul>
+          <li>Bloqué plus de 20 minutes : tu demandes l'explication, pas la solution</li>
+          <li>Tu notes la question dans <code>je-ne-comprends-pas.md</code></li>
+          <li>Tu avances. Rester bloqué deux heures n'enseigne rien de plus</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Dix jours consécutifs</h3>
+        <ul>
+          <li>Pour réactiver, la continuité bat l'espacement</li>
+          <li>3 h par jour pendant 10 jours valent mieux que 30 h étalées sur deux mois</li>
+          <li>Si tu dois couper, ne descends jamais sous 5 jours d'affilée</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Une seule pile, décidée le jour 1</h3>
+        <ul>
+          <li>TypeScript, Next.js, Postgres. Point.</li>
+          <li>Comparer des technologies est la forme la plus séduisante de procrastination</li>
+          <li>Tu changeras plus tard, avec une raison mesurée</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem">
+      <span class="prompt-label">Le prompt qui me transforme en tuteur</span>
+      <div class="prompt">Pendant les 10 prochains jours, tu es mon tuteur, pas mon développeur.
+Règles : ne m'écris jamais le code de l'exercice, même si je le demande.
+Quand je bloque, pose-moi une question qui me débloque, ou explique le
+concept avec un exemple sur un cas différent du mien. Quand je te montre
+mon code, dis-moi ce qui ne va pas et pourquoi, sans le corriger. Vérifie
+ma compréhension en me demandant de prédire ce que fait un bout de code
+avant que je l'exécute.</div>
+    </div>
+
+    <div class="weeks" style="margin-top:2.6rem">
+
+      <article class="week week--day">
+        <div class="week__id">
+          <span class="num">J1</span>
+          <span class="phase">L'atelier</span>
+        </div>
+        <div class="week__body">
+          <h3>Remonter l'établi</h3>
+          <p class="lede">Avant tout code, l'environnement — parce que c'est là que se perdent les premières heures et la première motivation.</p>
+          <dl class="fields">
+            <div>
+              <dt>Tu construis</dt>
+              <dd>Terminal, Node, npm, éditeur, git. Puis le dépôt de ton fil rouge : <code>npm init</code>, un script qui affiche quelque chose, un premier commit poussé sur GitHub.</dd>
+            </div>
+          </dl>
+          <p class="flag flag--win"><span class="lbl">Critère</span> <code>npm run dev</code> démarre, et le dépôt est en ligne. Tu te déplaces dans tes dossiers au clavier sans hésiter.</p>
+        </div>
+      </article>
+
+      <article class="week week--day">
+        <div class="week__id">
+          <span class="num">J2</span>
+          <span class="phase">Langage</span>
+        </div>
+        <div class="week__body">
+          <h3>JavaScript moderne : la syntaxe</h3>
+          <p class="lede">Tout ce qui a changé depuis la dernière fois que tu as pratiqué, et qui rend le code d'aujourd'hui illisible si tu l'ignores.</p>
+          <dl class="fields">
+            <div>
+              <dt>Tu revois</dt>
+              <dd><code>const</code>/<code>let</code>, fonctions fléchées, déstructuration, littéraux de gabarit, opérateur de décomposition, modules <code>import</code>/<code>export</code>, et surtout <code>map</code>, <code>filter</code>, <code>reduce</code>, <code>find</code>.</dd>
+            </div>
+            <div>
+              <dt>Tu construis</dt>
+              <dd>Un script qui lit un fichier JSON d'environ 200 lignes et en sort trois statistiques. Écrit à la main, sans boucle <code>for</code>.</dd>
+            </div>
+          </dl>
+          <p class="flag flag--win"><span class="lbl">Critère</span> Tu enchaînes <code>filter</code> puis <code>map</code> puis <code>reduce</code> sans aller chercher la syntaxe.</p>
+        </div>
+      </article>
+
+      <article class="week week--day">
+        <div class="week__id">
+          <span class="num">J3</span>
+          <span class="phase">Langage</span>
+        </div>
+        <div class="week__body">
+          <h3>L'asynchrone</h3>
+          <p class="lede">Le point qui bloque le plus souvent au retour, et celui qui explique le plus de bugs incompréhensibles.</p>
+          <dl class="fields">
+            <div>
+              <dt>Tu revois</dt>
+              <dd>Promesses, <code>async</code>/<code>await</code>, <code>try</code>/<code>catch</code>, <code>Promise.all</code>, <code>fetch</code>.</dd>
+            </div>
+            <div>
+              <dt>Tu construis</dt>
+              <dd>Un script en ligne de commande qui interroge une API publique, formate le résultat, et se comporte correctement quand le réseau tombe.</dd>
+            </div>
+          </dl>
+          <p class="flag flag--win"><span class="lbl">Critère</span> Tu expliques pourquoi un <code>await</code> dans une boucle est souvent une erreur, et tu sais le réécrire avec <code>Promise.all</code>.</p>
+        </div>
+      </article>
+
+      <article class="week week--day">
+        <div class="week__id">
+          <span class="num">J4</span>
+          <span class="phase">Navigateur</span>
+        </div>
+        <div class="week__body">
+          <h3>Le DOM, sans framework</h3>
+          <p class="lede">Comprendre ce qu'un framework fait à ta place avant d'en utiliser un. Une journée qui rend les trois suivantes beaucoup plus faciles.</p>
+          <dl class="fields">
+            <div>
+              <dt>Tu construis</dt>
+              <dd>Une page qui interroge l'API du J3 et affiche ses quatre états : vide, en chargement, en erreur, rempli. En JavaScript nu.</dd>
+            </div>
+          </dl>
+          <p class="flag flag--win"><span class="lbl">Critère</span> Aucune erreur dans la console, et les quatre états sont visibles en coupant volontairement le réseau.</p>
+        </div>
+      </article>
+
+      <article class="week week--day">
+        <div class="week__id">
+          <span class="num">J5</span>
+          <span class="phase">Serveur</span>
+        </div>
+        <div class="week__body">
+          <h3>HTTP pour de vrai</h3>
+          <p class="lede">Le protocole que tu utilises tous les jours sans l'avoir jamais regardé en face. Une demi-journée de lecture rembourse des années de confusion.</p>
+          <dl class="fields">
+            <div>
+              <dt>Tu revois</dt>
+              <dd>Requête et réponse, méthodes, codes de statut, en-têtes, corps JSON, cookies, CORS.</dd>
+            </div>
+            <div>
+              <dt>Tu construis</dt>
+              <dd>Un serveur minimal avec trois routes, que tu interroges depuis <code>curl</code> avant de toucher au navigateur.</dd>
+            </div>
+          </dl>
+          <p class="flag flag--win"><span class="lbl">Critère</span> Tu provoques volontairement un 401, un 404 et une erreur CORS, et tu expliques la cause de chacun.</p>
+        </div>
+      </article>
+
+      <article class="week week--day">
+        <div class="week__id">
+          <span class="num">J6</span>
+          <span class="phase">Serveur</span>
+        </div>
+        <div class="week__body">
+          <h3>Le CRUD complet</h3>
+          <p class="lede">Créer, lire, modifier, supprimer : la charpente de tout SaaS. Si tu la tiens, tout le reste n'est que variation.</p>
+          <dl class="fields">
+            <div>
+              <dt>Tu construis</dt>
+              <dd>Une API complète avec validation des entrées (Zod) et persistance SQLite. Chaque route renvoie le bon code de statut.</dd>
+            </div>
+          </dl>
+          <p class="flag flag--win"><span class="lbl">Critère</span> Le cycle complet fonctionne depuis <code>curl</code>, et une entrée invalide renvoie un 400 avec un message qu'un humain comprend.</p>
+        </div>
+      </article>
+
+      <article class="week week--day">
+        <div class="week__id">
+          <span class="num">J7</span>
+          <span class="phase">Langage</span>
+        </div>
+        <div class="week__body">
+          <h3>TypeScript, juste ce qu'il faut</h3>
+          <p class="lede">Pas la théorie des types : le sous-ensemble qui te protège du code que tu n'as pas écrit toi-même.</p>
+          <dl class="fields">
+            <div>
+              <dt>Tu construis</dt>
+              <dd>Le passage du J6 en TypeScript <code>strict</code>, zéro <code>any</code>. Types, interfaces, unions, inférence — appris sur ton propre code, pas sur des exemples.</dd>
+            </div>
+          </dl>
+          <p class="flag flag--win"><span class="lbl">Critère</span> <code>tsc --noEmit</code> est vert, et la migration t'a fait découvrir au moins un vrai bug qui dormait là.</p>
+        </div>
+      </article>
+
+      <article class="week week--day">
+        <div class="week__id">
+          <span class="num">J8</span>
+          <span class="phase">Interface</span>
+        </div>
+        <div class="week__body">
+          <h3>React et Next.js</h3>
+          <p class="lede">Après le J4, tu vois enfin ce que le framework résout — et le concept d'état cesse d'être une abstraction.</p>
+          <dl class="fields">
+            <div>
+              <dt>Tu construis</dt>
+              <dd>L'interface du J4, refaite en Next.js et branchée sur ton API. Composants, props, état, rendu serveur contre rendu client.</dd>
+            </div>
+          </dl>
+          <p class="flag flag--win"><span class="lbl">Critère</span> Tu expliques ce qui déclenche un nouveau rendu, et pourquoi ton effet ne doit pas s'exécuter deux fois.</p>
+        </div>
+      </article>
+
+      <article class="week week--day">
+        <div class="week__id">
+          <span class="num">J9</span>
+          <span class="phase">Données</span>
+        </div>
+        <div class="week__body">
+          <h3>SQL et Postgres</h3>
+          <p class="lede">La journée la plus rentable des dix. C'est aussi la compétence que la majorité des vibe codeurs n'acquièrent jamais.</p>
+          <dl class="fields">
+            <div>
+              <dt>Tu construis</dt>
+              <dd>Le remplacement de SQLite par Postgres. Tu écris les requêtes <strong>à la main d'abord</strong> — <code>SELECT</code>, <code>JOIN</code>, <code>WHERE</code>, <code>GROUP BY</code> — et tu ne passes à l'ORM qu'ensuite.</dd>
+            </div>
+          </dl>
+          <p class="flag flag--win"><span class="lbl">Critère</span> Tu écris une jointure entre deux tables sans aide, et tu justifies chaque index que tu poses.</p>
+        </div>
+      </article>
+
+      <article class="week week--day">
+        <div class="week__id">
+          <span class="num">J10</span>
+          <span class="phase">Mise en ligne</span>
+        </div>
+        <div class="week__body">
+          <h3>Le rendre public</h3>
+          <p class="lede">Un projet qui tourne sur ta machine n'existe pas. La dernière marche est aussi celle qui donne envie de continuer.</p>
+          <dl class="fields">
+            <div>
+              <dt>Tu construis</dt>
+              <dd>Le déploiement complet : variables d'environnement, base de données gérée, mise en ligne, nom de domaine.</dd>
+            </div>
+          </dl>
+          <p class="flag flag--win"><span class="lbl">Critère</span> Tu envoies l'URL à quelqu'un et ça fonctionne sur son téléphone, sans que tu aies à expliquer quoi que ce soit.</p>
+          <p class="flag flag--trap"><span class="lbl">Ensuite</span> Tu enchaînes directement sur la semaine 0. Ne prends pas de pause ici : c'est le moment où l'élan vaut le plus cher.</p>
+        </div>
+      </article>
+
     </div>
   </section>
 
